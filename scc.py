@@ -3,15 +3,18 @@ import re
 def parse(txt):
     # parse code
     pc = 0
+    # self key word support
     xe = re.findall(".+self.+",txt)
     for y in xe:
         y = y.strip()
         t = y.split('.')
         # replace the self with the struct name
         exp = t[0]+"."+ t[1].replace('self','&'+t[0])
+        exp = exp + " // " + str(pc) + ': ' + y
         txt = txt.replace(y, exp)
-        print(y, t, exp)
-    
+        pc = pc + 1
+        #print(y, t, exp)
+    # for loop patterns support
     xe = re.findall("(for .+ in range\(.+\){)|(for .+ in range\(.+\).+{)|(for .+ in range\(.+\)\s.+{)", txt)
     print(xe[0])
     for y in xe:
@@ -26,6 +29,7 @@ def parse(txt):
                 exp = exp + " // " + str(pc) + ': ' + x.replace('\n','')
                 txt = txt.replace(x,exp)
                 pc = pc + 1
+    # String Manipulation support
     xe = re.findall("\$.+", txt)
     for x in xe:
         t = x.split(';')

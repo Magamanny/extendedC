@@ -31,3 +31,20 @@ $name = "Ali Harman"; // ->strcpy()
 $name += "Ali Harman";// ->strcat
 ```
 
+### Self Keyword Support
+
+Initial support for self keyword.
+
+```c
+// Prototype example
+typedef struct Car_st {
+    char brand[100];
+    char model[100];
+    int year;
+    // method
+    void (*info)(struct Car_st *car); // otherwise it will give error of unkown type
+} Car_st;
+// replacemnet pattern
+car1.info(&car1); // 0: car1.info(self);
+```
+
