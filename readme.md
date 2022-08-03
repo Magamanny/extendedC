@@ -45,6 +45,6 @@ typedef struct Car_st {
     void (*info)(struct Car_st *car); // otherwise it will give error of unkown type
 } Car_st;
 // replacemnet pattern
-car1.info(&car1); // 0: car1.info(self);
+car1.info(self); // -> car1.info(&car1);
 ```
 
